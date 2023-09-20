@@ -10,6 +10,9 @@ class PaymentService
 
     public function handle(array $data)
     {
+        $customer = $this->createCustomer($data);
+        dd($customer);
+
         if ($data['form_of_payment'] === 'pix') {
             return $this->pix();
         }
@@ -21,7 +24,7 @@ class PaymentService
         if ($data['form_of_payment'] === 'creditCard') {
             return $this->creditCard();
         }
-        
+
     }
 
     private function pix()
@@ -35,7 +38,7 @@ class PaymentService
     {
         dd('Chegou no boleto');
 
-        
+
     }
 
     private function creditCard()
@@ -43,6 +46,16 @@ class PaymentService
 
         dd('Chegou no CC');
 
-        
+
+    }
+
+    private function createCustomer(array $data): array
+    {
+        $fullName = $data['full_name'];
+        $document = $data['cpf_cnpj'];
+        return $this->asaasClient->createCustomer([
+            'full_name' => $fullName,
+            'document' => $document
+        ]);
     }
 }
