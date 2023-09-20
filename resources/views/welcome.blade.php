@@ -17,7 +17,7 @@
                     <div>
                         <label for="full_name">Nome Completo: </label>
                         <br>
-                        <input type="full_name" name="full_name" id="name">
+                        <input type="text" name="full_name" id="full_name">
                     </div>
                     <br>
                     <div>
@@ -29,7 +29,7 @@
                     <div>
                         <label for="form_of_payment">Forma de Pagamento:</label>
                         <br>
-                        <select name="form_of_payment" id="grapform_of_paymente">
+                        <select name="form_of_payment" id="form_of_payment">
                             <option value="pix">Pix</option>
                             <option value="ticket">Boleto</option>
                             <option value="creditCard">Cartão de Crédito</option>
@@ -41,5 +41,10 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
 </body>
 </html>
