@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class PerfectController extends Controller
 {
     public function welcome()
@@ -9,8 +11,9 @@ class PerfectController extends Controller
         return view('welcome');
     }
 
-    public function ticketMethod()
+    public function ticketMethod(Request $request)
     {
-        dd('Cheguei');
+        $requestData = $request->all();
+        dd($requestData);
     }
 }
