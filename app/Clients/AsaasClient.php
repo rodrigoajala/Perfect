@@ -71,6 +71,49 @@ class AsaasClient
 
     }
 
+    public function chargeCard(string $customerCred, array $token): array
+    {
+        $body = [
+            'customer' => $customerCred,
+            'billingType' => 'CREDIT_CARD',
+            'dueDate' => '2023-12-15',
+            'value' => 100,
+            'creditCardToken' => $token['creditCardToken']
+        ];
+        $response = Http::withOptions(['verify' => false])->withHeaders([
+            'access_token' => self::ACCESS_TOKEN,
+        ])->post(self::ASAAS_URL . 'v3/payments', $body);
+        return $response->json();
+    }
 
+    public function tokenCard(array $cardData, string $customerCardId): array
+    {
+
+        $date = explode('/', $cardData['credit_card_validity']);
+       $body = [    
+        'customer' => $customerCardId,
+        'creditCard' => [
+            'holderName' => $cardData['credit_card_holder_name'],
+            'number' => $cardData['credit_card_number'],
+            'expiryMonth' => $date[0],
+            'expiryYear' => $date[1],
+            'ccv' => $cardData['credit_card_cvv']
+        ],
+        'creditCardHolderInfo' =>[
+            'name' => $cardData['full_name'],
+            'email' => 'rodrigo@gmail.com',
+            'cpfCnpj' => $cardData['cpf_cnpj'],
+            'postalCode' => '89223-005',
+            'addressNumber' => '277',
+            'addressComplement' => null,
+            'phone' => '4738010919',
+            'mobilePhone' => '47998781877'
+        ]
+       ];
+       $response = Http::withOptions(['verify' => false])->withHeaders([
+            'access_token' => self::ACCESS_TOKEN,
+        ])->post(self::ASAAS_URL . 'v3/creditCard/tokenize', $body);
+        return $response->json();
+    }
 }
 

@@ -17,6 +17,13 @@
                     <a href="{{$link}}">Boleto Acesse Agora</a>
                 </p>
             @endif
+            <br>
+            @if(!empty($creditCard['status']) && $creditCard['type'] === "CREDIT_CARD")
+                <h1>Pagamento de Cartão de Credito</h1>
+                <p>
+                    {{$creditCard['status']}}
+                </p>
+            @endif
 
             @if(!empty($pix['qrCode']))
                 <h1>Pagamento Pix</h1>

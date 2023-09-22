@@ -17,8 +17,10 @@ class PerfectController extends Controller
 
     public function ticketMethod(Request $request)
     {
+        
 
         $requestData = $request->all();
+        
         // dump("dentro do controller antes de chamar o payment service");
         $data = $this->paymentService->handle($requestData);
         //dd($data);
@@ -27,7 +29,11 @@ class PerfectController extends Controller
                 'qrCode' => $data['encodedImage'] ?? null,
                 'copyPaste' => $data['payload'] ?? null
             ],
-            'link' => $data['bankSlipUrl'] ?? null
+            'link' => $data['bankSlipUrl'] ?? null,
+            'creditCard' => [
+                'status' => $data['status']?? null,
+                'type' => $data['billingType']?? null
+            ]
         ]);
     }
 }

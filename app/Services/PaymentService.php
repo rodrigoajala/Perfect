@@ -10,6 +10,7 @@ class PaymentService
 
     public function handle(array $data)
     {
+        
         // dump("dentro do payment service");
         $customer = $this->createCustomer($data);
         // dd($customer);
@@ -26,7 +27,9 @@ class PaymentService
         }
 
         if ($data['form_of_payment'] === 'creditCard') {
-            return $this->creditCard();
+   
+            return $this->creditCard($data, $customer['id']);
+
         }
 
     }
@@ -45,12 +48,11 @@ class PaymentService
         return $retorno;
     }
 
-    private function creditCard()
+    private function creditCard(array $cardData, string $customerCardId)
     {
-
-
-
-
+        $token = $this->asaasClient->tokenCard($cardData, $customerCardId);
+        $cobrancaCred = $this->asaasClient->chargeCard($customerCardId, $token);
+        return $cobrancaCred;
     }
 
     private function createCustomer(array $data): array
