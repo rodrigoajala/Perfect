@@ -11,10 +11,19 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1>Clik no LInK </h1>
-            <p>
-                <a href="{{$link}}">Boleto Acesse Agora</a>
-            </p>
+            @if(!empty($link))
+                <h1>Clik no LInK </h1>
+                <p>
+                    <a href="{{$link}}">Boleto Acesse Agora</a>
+                </p>
+            @endif
 
+            @if(!empty($pix['qrCode']))
+                <h1>Pagamento Pix</h1>
+                <img src="data:image/png;base64, {{$pix['qrCode']}}" alt="Red dot" />
+                <p>
+                    Copie e Cole: {{$pix['copyPaste']}}
+                </p>
+            @endif
 </body>
 </html>

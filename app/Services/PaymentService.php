@@ -20,7 +20,7 @@ class PaymentService
 
         if ($data['form_of_payment'] === 'ticket') {
             // dump("dentro do if");
-           
+
             return $this->ticket($customer['id']);
 
         }
@@ -31,10 +31,10 @@ class PaymentService
 
     }
 
-    private function pix(string $customerPix)
+    private function pix(string $customerPix): array
     {
         $retornoCobranca = $this->asaasClient->createPix($customerPix);
-             
+        return $this->asaasClient->generatePix($retornoCobranca['id']);
     }
 
     private function ticket(string $customerId): array
@@ -48,7 +48,7 @@ class PaymentService
     private function creditCard()
     {
 
-        
+
 
 
     }

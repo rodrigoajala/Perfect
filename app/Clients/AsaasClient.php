@@ -30,7 +30,7 @@ class AsaasClient
             'customer' => $customerId,
             'billingType' => 'BOLETO',
             'dueDate' => '2023-12-15',
-            'value' => 100           
+            'value' => 100
         ];
 
         $response = Http::withOptions(['verify' => false])->withHeaders([
@@ -54,23 +54,23 @@ class AsaasClient
         $response = Http::withOptions(['verify' => false])->withHeaders([
             'access_token' => self::ACCESS_TOKEN,
         ])->post(self::ASAAS_URL . 'v3/payments', $body);
-        
+
 
         return $response->json();
 
     }
 
-    public function generatePix(string $id)
+    public function generatePix(string $id): array
     {
 
         $response = Http::withOptions(['verify' => false])->withHeaders([
             'access_token' => self::ACCESS_TOKEN,
-        ])->get(self::ASAAS_URL . "v3/payments/" . "$id" . "/pixQrCode");
+        ])->get(self::ASAAS_URL . "v3/payments/" . $id . "/pixQrCode");
 
-
+        return $response->json();
 
     }
-    
+
 
 }
 
