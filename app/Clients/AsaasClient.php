@@ -54,8 +54,18 @@ class AsaasClient
         $response = Http::withOptions(['verify' => false])->withHeaders([
             'access_token' => self::ACCESS_TOKEN,
         ])->post(self::ASAAS_URL . 'v3/payments', $body);
+        
 
         return $response->json();
+
+    }
+
+    public function generatePix(string $id)
+    {
+
+        $response = Http::withOptions(['verify' => false])->withHeaders([
+            'access_token' => self::ACCESS_TOKEN,
+        ])->get(self::ASAAS_URL . "v3/payments/" . "$id" . "/pixQrCode");
 
 
 
