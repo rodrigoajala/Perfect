@@ -19,7 +19,12 @@ class PerfectController extends Controller
     {
 
         $requestData = $request->all();
+        // dump("dentro do controller antes de chamar o payment service");
         $data = $this->paymentService->handle($requestData);
-        
+        // dd($data);
+        return view('ticket', [
+
+            'link' => $data['bankSlipUrl']
+        ]);
     }
 }

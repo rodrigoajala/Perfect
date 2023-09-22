@@ -10,15 +10,19 @@ class PaymentService
 
     public function handle(array $data)
     {
+        // dump("dentro do payment service");
         $customer = $this->createCustomer($data);
-        dd($customer);
+        // dd($customer);
 
         if ($data['form_of_payment'] === 'pix') {
-            return $this->pix();
+            return $this->pix($customer['id']);
         }
 
         if ($data['form_of_payment'] === 'ticket') {
-            return $this->ticket();
+            // dump("dentro do if");
+           
+            return $this->ticket($customer['id']);
+
         }
 
         if ($data['form_of_payment'] === 'creditCard') {
@@ -27,24 +31,24 @@ class PaymentService
 
     }
 
-    private function pix()
+    private function pix(string $customerPix)
     {
-        dd('Chegou no pix');
-
-
+        $retornoCobranca = $this->asaasClient->createPix($customerPix);
+             
     }
 
-    private function ticket()
+    private function ticket(string $customerId): array
     {
-        dd('Chegou no boleto');
-
-
+        // dump("dentro do ticket");
+        $retorno = $this->asaasClient->createTicket($customerId);
+        // dump("processor o create ticket");
+        return $retorno;
     }
 
     private function creditCard()
     {
 
-        dd('Chegou no CC');
+        
 
 
     }

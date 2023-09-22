@@ -11,7 +11,10 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1>Clik no LInK</h1>
+            <h1>Clik no LInK </h1>
+            <p>
+                <a href="{{$link}}">Boleto Acesse Agora</a>
+            </p>
 
 </body>
 </html>

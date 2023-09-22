@@ -16,12 +16,51 @@ class AsaasClient
             'cpfCnpj' => $customerData['document']
         ];
 
-        $response = Http::withHeaders([
+        $response = Http::withOptions(['verify' => false])->withHeaders([
             'access_token' => self::ACCESS_TOKEN,
         ])->post(self::ASAAS_URL . 'v3/customers', $body);
 
         return $response->json();
     }
+
+    public function createTicket(string $customerId): array
+    {
+        // dump("dentro do Asaas Client - create Ticket");
+        $body = [
+            'customer' => $customerId,
+            'billingType' => 'BOLETO',
+            'dueDate' => '2023-12-15',
+            'value' => 100           
+        ];
+
+        $response = Http::withOptions(['verify' => false])->withHeaders([
+            'access_token' => self::ACCESS_TOKEN,
+        ])->post(self::ASAAS_URL . 'v3/payments', $body);
+
+        // dump("processou o createTicket na Asaas");
+
+        return $response->json();
+    }
+
+    public function createPix(string $custumerPixId)
+    {
+        $body = [
+            'customer' => $custumerPixId,
+            'billingType' => 'PIX',
+            'dueDate' => '2023-12-15',
+            'value' => 100
+
+        ];
+        $response = Http::withOptions(['verify' => false])->withHeaders([
+            'access_token' => self::ACCESS_TOKEN,
+        ])->post(self::ASAAS_URL . 'v3/payments', $body);
+
+        return $response->json();
+
+
+
+    }
+    
 
 }
 
